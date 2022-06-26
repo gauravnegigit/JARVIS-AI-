@@ -136,11 +136,18 @@ def main():
     while True :
         query = takeCommand().lower()
 
-        if 'wikipedia' in query :
+        if "who are you" in query :
+            speak("Sir , I am Jarvis developed by Gaurav Negi ! ") 
+
+        elif 'wikipedia' in query :
             speak('Searching Wikipedia ...')
             query = query.replace("wikipedia" , "")
-            results = wikipedia.summary(query , sentences = 4)
-            speak(f"\n\nAccording to wikipedia {results}")
+
+            try : 
+                results = wikipedia.summary(query , sentences = 4)
+                speak(f"\n\nAccording to wikipedia {results}")
+            except : 
+                speak('Please try again ! ') 
         
         elif 'open youtube' in query :
             webbrowser.open('youtube.com')
@@ -161,6 +168,7 @@ def main():
                     break 
                 except :
                     speak("PLEASE ENTER THE VALID WEBSITE ....")
+                    website = input()
         
         elif 'play music' in query :
             music_dir = ''
@@ -168,8 +176,8 @@ def main():
             os.startfile(os.path.join(music_dir , songs[random.randint(0 , len(songs) - 1)]))
 
         elif "time" in query :
-            stime= datetime.datetime.now().strftime("%H%M%S")
-            speak(f"Sir , the time is {stime}")
+            s= datetime.datetime.now().strftime("%H%M%S")
+            speak(f"Sir , the time is {s[0:2]} hour {s[2:4] } minutes and {s[4:6]} seconds")
 
         elif 'open code' in query :
             dir = r"C:\Users\Dell\AppData\Local\Programs\Microsoft VS Code\Code.exe"
@@ -187,6 +195,7 @@ def main():
 
                 except Exception as e :
                     speak("Please try again ...")
+                    dir = input()
             
         elif "send email" in query :
             send_dict = {"gaurav" : "id" , "xyz" : "id"}   # this dictionary must conatin the username as teh key and the id as the value 
@@ -212,6 +221,7 @@ def main():
                 speak("Sorry unable to send the email")
         
         elif 'quit' in query :
+            speak('Thanks for your time sir !')
             quit()
 
 if __name__ == '__main__':
